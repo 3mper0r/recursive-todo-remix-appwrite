@@ -255,56 +255,6 @@ app/
 MIT
 ```
 
----
-
-### 4. Optional: Welcome Email (Appwrite Function)
-
-This is optional but here's how you'd do it:
-
-1. Go to Appwrite Console → Functions
-2. Create a new function
-3. Set trigger to "Users - Create"
-4. Use this code:
-```javascript
-import { Client, Users } from 'node-appwrite';
-
-export default async ({ req, res, log, error }) => {
-  const client = new Client()
-    .setEndpoint(process.env.APPWRITE_ENDPOINT)
-    .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-    .setKey(process.env.APPWRITE_API_KEY);
-
-  const users = new Users(client);
-
-  try {
-    const userId = req.body.userId;
-    const user = await users.get(userId);
-    
-    log(`Sending welcome email to ${user.email}`);
-    
-    // Send email using your email service (SendGrid, Mailgun, etc.)
-    // This is just a placeholder
-    
-    return res.json({ success: true });
-  } catch (err) {
-    error(err.message);
-    return res.json({ success: false, error: err.message }, 500);
-  }
-};
-```
-
----
-
-## Summary
-
-Now you have:
-- ✅ Full authentication
-- ✅ Recursive todos
-- ✅ **UI tests with Vitest**
-- ✅ **Form validation** (client + server)
-- ✅ **Complete README with CI/CD plan**
-- ⚠️ Welcome email (optional, outlined above)
-
 Run the tests:
 ```bash
 npm test
