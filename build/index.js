@@ -36,14 +36,24 @@ import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
 function App() {
   return /* @__PURE__ */ jsxDEV2("html", { lang: "en", children: [
     /* @__PURE__ */ jsxDEV2("head", { children: [
-      /* @__PURE__ */ jsxDEV2(Meta, {}, void 0, !1, {
+      /* @__PURE__ */ jsxDEV2("meta", { charSet: "utf-8" }, void 0, !1, {
         fileName: "app/root.tsx",
         lineNumber: 7,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ jsxDEV2(Links, {}, void 0, !1, {
+      /* @__PURE__ */ jsxDEV2("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }, void 0, !1, {
         fileName: "app/root.tsx",
         lineNumber: 8,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV2(Meta, {}, void 0, !1, {
+        fileName: "app/root.tsx",
+        lineNumber: 9,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV2(Links, {}, void 0, !1, {
+        fileName: "app/root.tsx",
+        lineNumber: 10,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
@@ -54,17 +64,17 @@ function App() {
     /* @__PURE__ */ jsxDEV2("body", { children: [
       /* @__PURE__ */ jsxDEV2(Outlet, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 11,
+        lineNumber: 13,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ jsxDEV2(Scripts, {}, void 0, !1, {
         fileName: "app/root.tsx",
-        lineNumber: 12,
+        lineNumber: 14,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 10,
+      lineNumber: 12,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
@@ -148,7 +158,7 @@ async function createAppwriteAccount(email, password, userId) {
 }
 
 // app/routes/_index.tsx
-import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
+import { Fragment, jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
 var action = async ({ request }) => {
   let formData = await request.formData(), email = formData.get("email"), password = formData.get("password");
   console.log("Login attempt for:", email);
@@ -167,58 +177,399 @@ var action = async ({ request }) => {
 };
 function IndexPage() {
   let actionData = useActionData(), isSubmitting = useNavigation().state === "submitting";
-  return /* @__PURE__ */ jsxDEV3("div", { style: { maxWidth: 420, margin: "80px auto", textAlign: "center" }, children: [
-    /* @__PURE__ */ jsxDEV3("h1", { children: "Recursive To-Do App" }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 44,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ jsxDEV3("p", { children: "Log in to see your todos" }, void 0, !1, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 45,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ jsxDEV3(Form, { method: "post", children: [
-      /* @__PURE__ */ jsxDEV3("input", { name: "email", type: "email", required: !0 }, void 0, !1, {
+  return /* @__PURE__ */ jsxDEV3("div", { style: {
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "20px",
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+  }, children: /* @__PURE__ */ jsxDEV3("div", { style: {
+    maxWidth: "420px",
+    width: "100%"
+  }, children: [
+    /* @__PURE__ */ jsxDEV3("div", { style: { textAlign: "center", marginBottom: "32px" }, children: [
+      /* @__PURE__ */ jsxDEV3("div", { style: {
+        width: "64px",
+        height: "64px",
+        background: "linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)",
+        borderRadius: "16px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "0 auto 24px",
+        boxShadow: "0 10px 25px rgba(79, 70, 229, 0.5)"
+      }, children: /* @__PURE__ */ jsxDEV3("svg", { style: { width: "40px", height: "40px", color: "white" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV3("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" }, void 0, !1, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 47,
-        columnNumber: 9
+        lineNumber: 69,
+        columnNumber: 15
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 68,
+        columnNumber: 13
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 57,
+        columnNumber: 11
       }, this),
-      /* @__PURE__ */ jsxDEV3("input", { name: "password", type: "password", required: !0 }, void 0, !1, {
+      /* @__PURE__ */ jsxDEV3("h1", { style: {
+        fontSize: "32px",
+        fontWeight: "700",
+        color: "white",
+        marginBottom: "8px",
+        margin: "0 0 8px 0"
+      }, children: "Welcome back" }, void 0, !1, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 48,
-        columnNumber: 9
+        lineNumber: 72,
+        columnNumber: 11
       }, this),
-      actionData?.error && /* @__PURE__ */ jsxDEV3("p", { style: { color: "red" }, children: actionData.error }, void 0, !1, {
+      /* @__PURE__ */ jsxDEV3("p", { style: {
+        color: "rgba(255, 255, 255, 0.9)",
+        fontSize: "16px",
+        margin: 0
+      }, children: "Log in to access your todos" }, void 0, !1, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 49,
-        columnNumber: 31
-      }, this),
-      /* @__PURE__ */ jsxDEV3("button", { type: "submit", disabled: isSubmitting, children: isSubmitting ? "Logging in..." : "Log in" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 50,
-        columnNumber: 9
+        lineNumber: 81,
+        columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 46,
-      columnNumber: 7
+      lineNumber: 56,
+      columnNumber: 9
     }, this),
-    /* @__PURE__ */ jsxDEV3("p", { children: [
-      "No account? ",
-      /* @__PURE__ */ jsxDEV3("a", { href: "/signup", children: "Sign up" }, void 0, !1, {
+    /* @__PURE__ */ jsxDEV3("div", { style: {
+      background: "white",
+      borderRadius: "16px",
+      boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+      padding: "40px",
+      marginBottom: "24px"
+    }, children: /* @__PURE__ */ jsxDEV3(Form, { method: "post", children: [
+      /* @__PURE__ */ jsxDEV3("div", { style: { marginBottom: "24px" }, children: [
+        /* @__PURE__ */ jsxDEV3("label", { htmlFor: "email", style: {
+          display: "block",
+          fontSize: "14px",
+          fontWeight: "500",
+          color: "#374151",
+          marginBottom: "8px"
+        }, children: "Email address" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 101,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDEV3("div", { style: { position: "relative" }, children: [
+          /* @__PURE__ */ jsxDEV3("div", { style: {
+            position: "absolute",
+            left: "12px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            pointerEvents: "none"
+          }, children: /* @__PURE__ */ jsxDEV3("svg", { style: { width: "20px", height: "20px", color: "#9CA3AF" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV3("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 119,
+            columnNumber: 21
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 118,
+            columnNumber: 19
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 111,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV3(
+            "input",
+            {
+              id: "email",
+              name: "email",
+              type: "email",
+              autoComplete: "email",
+              required: !0,
+              placeholder: "you@example.com",
+              style: {
+                width: "100%",
+                padding: "12px 12px 12px 44px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "8px",
+                fontSize: "16px",
+                outline: "none",
+                transition: "all 0.15s ease",
+                boxSizing: "border-box"
+              },
+              onFocus: (e) => {
+                e.target.style.borderColor = "#4F46E5", e.target.style.boxShadow = "0 0 0 3px rgba(79, 70, 229, 0.1)";
+              },
+              onBlur: (e) => {
+                e.target.style.borderColor = "#D1D5DB", e.target.style.boxShadow = "none";
+              }
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 122,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, void 0, !0, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 110,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, !0, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 55,
-        columnNumber: 21
-      }, this)
+        lineNumber: 100,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ jsxDEV3("div", { style: { marginBottom: "24px" }, children: [
+        /* @__PURE__ */ jsxDEV3("label", { htmlFor: "password", style: {
+          display: "block",
+          fontSize: "14px",
+          fontWeight: "500",
+          color: "#374151",
+          marginBottom: "8px"
+        }, children: "Password" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 153,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDEV3("div", { style: { position: "relative" }, children: [
+          /* @__PURE__ */ jsxDEV3("div", { style: {
+            position: "absolute",
+            left: "12px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            pointerEvents: "none"
+          }, children: /* @__PURE__ */ jsxDEV3("svg", { style: { width: "20px", height: "20px", color: "#9CA3AF" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV3("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 171,
+            columnNumber: 21
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 170,
+            columnNumber: 19
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 163,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV3(
+            "input",
+            {
+              id: "password",
+              name: "password",
+              type: "password",
+              autoComplete: "current-password",
+              required: !0,
+              placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+              style: {
+                width: "100%",
+                padding: "12px 12px 12px 44px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "8px",
+                fontSize: "16px",
+                outline: "none",
+                transition: "all 0.15s ease",
+                boxSizing: "border-box"
+              },
+              onFocus: (e) => {
+                e.target.style.borderColor = "#4F46E5", e.target.style.boxShadow = "0 0 0 3px rgba(79, 70, 229, 0.1)";
+              },
+              onBlur: (e) => {
+                e.target.style.borderColor = "#D1D5DB", e.target.style.boxShadow = "none";
+              }
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 174,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, void 0, !0, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 162,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 152,
+        columnNumber: 13
+      }, this),
+      actionData?.error && /* @__PURE__ */ jsxDEV3("div", { style: {
+        background: "#FEE2E2",
+        border: "1px solid #FECACA",
+        borderRadius: "8px",
+        padding: "16px",
+        display: "flex",
+        alignItems: "flex-start",
+        marginBottom: "24px"
+      }, children: [
+        /* @__PURE__ */ jsxDEV3("svg", { style: { width: "20px", height: "20px", color: "#DC2626", marginRight: "12px", flexShrink: 0, marginTop: "2px" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV3("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 215,
+          columnNumber: 19
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 214,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ jsxDEV3("p", { style: { fontSize: "14px", color: "#991B1B", margin: 0 }, children: actionData.error }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 217,
+          columnNumber: 17
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 205,
+        columnNumber: 15
+      }, this),
+      /* @__PURE__ */ jsxDEV3(
+        "button",
+        {
+          type: "submit",
+          disabled: isSubmitting,
+          style: {
+            width: "100%",
+            padding: "14px 24px",
+            background: isSubmitting ? "#9CA3AF" : "linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)",
+            border: "none",
+            borderRadius: "8px",
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "600",
+            cursor: isSubmitting ? "not-allowed" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.15s ease",
+            boxShadow: "0 4px 12px rgba(79, 70, 229, 0.4)"
+          },
+          onMouseEnter: (e) => {
+            isSubmitting || (e.currentTarget.style.transform = "translateY(-2px)", e.currentTarget.style.boxShadow = "0 6px 16px rgba(79, 70, 229, 0.5)");
+          },
+          onMouseLeave: (e) => {
+            e.currentTarget.style.transform = "translateY(0)", e.currentTarget.style.boxShadow = "0 4px 12px rgba(79, 70, 229, 0.4)";
+          },
+          children: isSubmitting ? /* @__PURE__ */ jsxDEV3(Fragment, { children: [
+            /* @__PURE__ */ jsxDEV3("svg", { style: {
+              animation: "spin 1s linear infinite",
+              marginRight: "12px",
+              width: "20px",
+              height: "20px"
+            }, fill: "none", viewBox: "0 0 24 24", children: [
+              /* @__PURE__ */ jsxDEV3("circle", { style: { opacity: 0.25 }, cx: "12", cy: "12", r: "10", stroke: "currentColor", strokeWidth: "4" }, void 0, !1, {
+                fileName: "app/routes/_index.tsx",
+                lineNumber: 260,
+                columnNumber: 21
+              }, this),
+              /* @__PURE__ */ jsxDEV3("path", { style: { opacity: 0.75 }, fill: "currentColor", d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" }, void 0, !1, {
+                fileName: "app/routes/_index.tsx",
+                lineNumber: 261,
+                columnNumber: 21
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 254,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ jsxDEV3("style", { children: `
+                    @keyframes spin {
+                      from { transform: rotate(0deg); }
+                      to { transform: rotate(360deg); }
+                    }
+                  ` }, void 0, !1, {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 263,
+              columnNumber: 19
+            }, this),
+            "Logging in..."
+          ] }, void 0, !0, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 253,
+            columnNumber: 17
+          }, this) : /* @__PURE__ */ jsxDEV3(Fragment, { children: [
+            "Log in",
+            /* @__PURE__ */ jsxDEV3("svg", { style: { marginLeft: "8px", width: "16px", height: "16px" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV3("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M13 7l5 5m0 0l-5 5m5-5H6" }, void 0, !1, {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 275,
+              columnNumber: 21
+            }, this) }, void 0, !1, {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 274,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 272,
+            columnNumber: 17
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 222,
+          columnNumber: 13
+        },
+        this
+      )
     ] }, void 0, !0, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 54,
-      columnNumber: 7
+      lineNumber: 98,
+      columnNumber: 11
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 91,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ jsxDEV3("p", { style: {
+      textAlign: "center",
+      fontSize: "14px",
+      color: "white",
+      margin: 0
+    }, children: [
+      "Don't have an account?",
+      " ",
+      /* @__PURE__ */ jsxDEV3(
+        "a",
+        {
+          href: "/signup",
+          style: {
+            fontWeight: "600",
+            color: "white",
+            textDecoration: "none",
+            borderBottom: "2px solid white",
+            transition: "opacity 0.15s ease"
+          },
+          onMouseEnter: (e) => e.currentTarget.style.opacity = "0.8",
+          onMouseLeave: (e) => e.currentTarget.style.opacity = "1",
+          children: "Sign up"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 291,
+          columnNumber: 11
+        },
+        this
+      )
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 284,
+      columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 43,
+    lineNumber: 51,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/_index.tsx",
+    lineNumber: 42,
     columnNumber: 5
   }, this);
 }
@@ -265,7 +616,7 @@ __export(signup_exports, {
 import { useActionData as useActionData2, Form as Form2, useNavigation as useNavigation2 } from "@remix-run/react";
 import { redirect as redirect3, json as json2 } from "@remix-run/node";
 import { ID } from "appwrite";
-import { jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
+import { Fragment as Fragment2, jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
 var action2 = async ({ request }) => {
   console.log("!!! SIGNUP ACTION CALLED !!!");
   try {
@@ -300,63 +651,399 @@ var action2 = async ({ request }) => {
 };
 function SignupPage() {
   let actionData = useActionData2(), isSubmitting = useNavigation2().state === "submitting";
-  return /* @__PURE__ */ jsxDEV4("div", { style: { maxWidth: 420, margin: "80px auto", textAlign: "center" }, children: [
-    /* @__PURE__ */ jsxDEV4("h1", { children: "Create account" }, void 0, !1, {
-      fileName: "app/routes/signup.tsx",
-      lineNumber: 73,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ jsxDEV4(Form2, { method: "post", children: [
-      /* @__PURE__ */ jsxDEV4("input", { name: "email", type: "email", required: !0, placeholder: "Email" }, void 0, !1, {
+  return /* @__PURE__ */ jsxDEV4("div", { style: {
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "20px",
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+  }, children: /* @__PURE__ */ jsxDEV4("div", { style: {
+    maxWidth: "420px",
+    width: "100%"
+  }, children: [
+    /* @__PURE__ */ jsxDEV4("div", { style: { textAlign: "center", marginBottom: "32px" }, children: [
+      /* @__PURE__ */ jsxDEV4("div", { style: {
+        width: "64px",
+        height: "64px",
+        background: "linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)",
+        borderRadius: "16px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "0 auto 24px",
+        boxShadow: "0 10px 25px rgba(79, 70, 229, 0.5)"
+      }, children: /* @__PURE__ */ jsxDEV4("svg", { style: { width: "40px", height: "40px", color: "white" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 75,
-        columnNumber: 9
+        lineNumber: 93,
+        columnNumber: 15
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/signup.tsx",
+        lineNumber: 92,
+        columnNumber: 13
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/signup.tsx",
+        lineNumber: 81,
+        columnNumber: 11
       }, this),
-      /* @__PURE__ */ jsxDEV4("br", {}, void 0, !1, {
+      /* @__PURE__ */ jsxDEV4("h1", { style: {
+        fontSize: "32px",
+        fontWeight: "700",
+        color: "white",
+        marginBottom: "8px",
+        margin: "0 0 8px 0"
+      }, children: "Create account" }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 76,
-        columnNumber: 9
+        lineNumber: 96,
+        columnNumber: 11
       }, this),
-      /* @__PURE__ */ jsxDEV4("input", { name: "password", type: "password", required: !0, placeholder: "Password" }, void 0, !1, {
+      /* @__PURE__ */ jsxDEV4("p", { style: {
+        color: "rgba(255, 255, 255, 0.9)",
+        fontSize: "16px",
+        margin: 0
+      }, children: "Join us and start your journey today" }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 77,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV4("br", {}, void 0, !1, {
-        fileName: "app/routes/signup.tsx",
-        lineNumber: 78,
-        columnNumber: 9
-      }, this),
-      actionData?.error && /* @__PURE__ */ jsxDEV4("p", { style: { color: "red" }, children: actionData.error }, void 0, !1, {
-        fileName: "app/routes/signup.tsx",
-        lineNumber: 79,
-        columnNumber: 31
-      }, this),
-      /* @__PURE__ */ jsxDEV4("button", { type: "submit", disabled: isSubmitting, children: isSubmitting ? "Creating account..." : "Sign up" }, void 0, !1, {
-        fileName: "app/routes/signup.tsx",
-        lineNumber: 80,
-        columnNumber: 9
+        lineNumber: 105,
+        columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 74,
-      columnNumber: 7
+      lineNumber: 80,
+      columnNumber: 9
     }, this),
-    /* @__PURE__ */ jsxDEV4("p", { children: [
-      "Already have an account? ",
-      /* @__PURE__ */ jsxDEV4("a", { href: "/", children: "Log in" }, void 0, !1, {
+    /* @__PURE__ */ jsxDEV4("div", { style: {
+      background: "white",
+      borderRadius: "16px",
+      boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+      padding: "40px",
+      marginBottom: "24px"
+    }, children: /* @__PURE__ */ jsxDEV4(Form2, { method: "post", children: [
+      /* @__PURE__ */ jsxDEV4("div", { style: { marginBottom: "24px" }, children: [
+        /* @__PURE__ */ jsxDEV4("label", { htmlFor: "email", style: {
+          display: "block",
+          fontSize: "14px",
+          fontWeight: "500",
+          color: "#374151",
+          marginBottom: "8px"
+        }, children: "Email address" }, void 0, !1, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 125,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDEV4("div", { style: { position: "relative" }, children: [
+          /* @__PURE__ */ jsxDEV4("div", { style: {
+            position: "absolute",
+            left: "12px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            pointerEvents: "none"
+          }, children: /* @__PURE__ */ jsxDEV4("svg", { style: { width: "20px", height: "20px", color: "#9CA3AF" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 143,
+            columnNumber: 21
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 142,
+            columnNumber: 19
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 135,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV4(
+            "input",
+            {
+              id: "email",
+              name: "email",
+              type: "email",
+              autoComplete: "email",
+              required: !0,
+              placeholder: "you@example.com",
+              style: {
+                width: "100%",
+                padding: "12px 12px 12px 44px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "8px",
+                fontSize: "16px",
+                outline: "none",
+                transition: "all 0.15s ease",
+                boxSizing: "border-box"
+              },
+              onFocus: (e) => {
+                e.target.style.borderColor = "#4F46E5", e.target.style.boxShadow = "0 0 0 3px rgba(79, 70, 229, 0.1)";
+              },
+              onBlur: (e) => {
+                e.target.style.borderColor = "#D1D5DB", e.target.style.boxShadow = "none";
+              }
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/signup.tsx",
+              lineNumber: 146,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, void 0, !0, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 134,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, !0, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 85,
-        columnNumber: 34
-      }, this)
+        lineNumber: 124,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ jsxDEV4("div", { style: { marginBottom: "24px" }, children: [
+        /* @__PURE__ */ jsxDEV4("label", { htmlFor: "password", style: {
+          display: "block",
+          fontSize: "14px",
+          fontWeight: "500",
+          color: "#374151",
+          marginBottom: "8px"
+        }, children: "Password" }, void 0, !1, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 177,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDEV4("div", { style: { position: "relative" }, children: [
+          /* @__PURE__ */ jsxDEV4("div", { style: {
+            position: "absolute",
+            left: "12px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            pointerEvents: "none"
+          }, children: /* @__PURE__ */ jsxDEV4("svg", { style: { width: "20px", height: "20px", color: "#9CA3AF" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 195,
+            columnNumber: 21
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 194,
+            columnNumber: 19
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 187,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV4(
+            "input",
+            {
+              id: "password",
+              name: "password",
+              type: "password",
+              autoComplete: "new-password",
+              required: !0,
+              placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+              style: {
+                width: "100%",
+                padding: "12px 12px 12px 44px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "8px",
+                fontSize: "16px",
+                outline: "none",
+                transition: "all 0.15s ease",
+                boxSizing: "border-box"
+              },
+              onFocus: (e) => {
+                e.target.style.borderColor = "#4F46E5", e.target.style.boxShadow = "0 0 0 3px rgba(79, 70, 229, 0.1)";
+              },
+              onBlur: (e) => {
+                e.target.style.borderColor = "#D1D5DB", e.target.style.boxShadow = "none";
+              }
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/signup.tsx",
+              lineNumber: 198,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, void 0, !0, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 186,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/signup.tsx",
+        lineNumber: 176,
+        columnNumber: 13
+      }, this),
+      actionData?.error && /* @__PURE__ */ jsxDEV4("div", { style: {
+        background: "#FEE2E2",
+        border: "1px solid #FECACA",
+        borderRadius: "8px",
+        padding: "16px",
+        display: "flex",
+        alignItems: "flex-start",
+        marginBottom: "24px"
+      }, children: [
+        /* @__PURE__ */ jsxDEV4("svg", { style: { width: "20px", height: "20px", color: "#DC2626", marginRight: "12px", flexShrink: 0, marginTop: "2px" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }, void 0, !1, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 239,
+          columnNumber: 19
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 238,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ jsxDEV4("p", { style: { fontSize: "14px", color: "#991B1B", margin: 0 }, children: actionData.error }, void 0, !1, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 241,
+          columnNumber: 17
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/signup.tsx",
+        lineNumber: 229,
+        columnNumber: 15
+      }, this),
+      /* @__PURE__ */ jsxDEV4(
+        "button",
+        {
+          type: "submit",
+          disabled: isSubmitting,
+          style: {
+            width: "100%",
+            padding: "14px 24px",
+            background: isSubmitting ? "#9CA3AF" : "linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)",
+            border: "none",
+            borderRadius: "8px",
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "600",
+            cursor: isSubmitting ? "not-allowed" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.15s ease",
+            boxShadow: "0 4px 12px rgba(79, 70, 229, 0.4)"
+          },
+          onMouseEnter: (e) => {
+            isSubmitting || (e.currentTarget.style.transform = "translateY(-2px)", e.currentTarget.style.boxShadow = "0 6px 16px rgba(79, 70, 229, 0.5)");
+          },
+          onMouseLeave: (e) => {
+            e.currentTarget.style.transform = "translateY(0)", e.currentTarget.style.boxShadow = "0 4px 12px rgba(79, 70, 229, 0.4)";
+          },
+          children: isSubmitting ? /* @__PURE__ */ jsxDEV4(Fragment2, { children: [
+            /* @__PURE__ */ jsxDEV4("svg", { style: {
+              animation: "spin 1s linear infinite",
+              marginRight: "12px",
+              width: "20px",
+              height: "20px"
+            }, fill: "none", viewBox: "0 0 24 24", children: [
+              /* @__PURE__ */ jsxDEV4("circle", { style: { opacity: 0.25 }, cx: "12", cy: "12", r: "10", stroke: "currentColor", strokeWidth: "4" }, void 0, !1, {
+                fileName: "app/routes/signup.tsx",
+                lineNumber: 284,
+                columnNumber: 21
+              }, this),
+              /* @__PURE__ */ jsxDEV4("path", { style: { opacity: 0.75 }, fill: "currentColor", d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" }, void 0, !1, {
+                fileName: "app/routes/signup.tsx",
+                lineNumber: 285,
+                columnNumber: 21
+              }, this)
+            ] }, void 0, !0, {
+              fileName: "app/routes/signup.tsx",
+              lineNumber: 278,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ jsxDEV4("style", { children: `
+                    @keyframes spin {
+                      from { transform: rotate(0deg); }
+                      to { transform: rotate(360deg); }
+                    }
+                  ` }, void 0, !1, {
+              fileName: "app/routes/signup.tsx",
+              lineNumber: 287,
+              columnNumber: 19
+            }, this),
+            "Creating account..."
+          ] }, void 0, !0, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 277,
+            columnNumber: 17
+          }, this) : /* @__PURE__ */ jsxDEV4(Fragment2, { children: [
+            "Sign up",
+            /* @__PURE__ */ jsxDEV4("svg", { style: { marginLeft: "8px", width: "16px", height: "16px" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M13 7l5 5m0 0l-5 5m5-5H6" }, void 0, !1, {
+              fileName: "app/routes/signup.tsx",
+              lineNumber: 299,
+              columnNumber: 21
+            }, this) }, void 0, !1, {
+              fileName: "app/routes/signup.tsx",
+              lineNumber: 298,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 296,
+            columnNumber: 17
+          }, this)
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 246,
+          columnNumber: 13
+        },
+        this
+      )
     ] }, void 0, !0, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 84,
-      columnNumber: 7
+      lineNumber: 122,
+      columnNumber: 11
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/signup.tsx",
+      lineNumber: 115,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ jsxDEV4("p", { style: {
+      textAlign: "center",
+      fontSize: "14px",
+      color: "white",
+      margin: 0
+    }, children: [
+      "Already have an account?",
+      " ",
+      /* @__PURE__ */ jsxDEV4(
+        "a",
+        {
+          href: "/",
+          style: {
+            fontWeight: "600",
+            color: "white",
+            textDecoration: "none",
+            borderBottom: "2px solid white",
+            transition: "opacity 0.15s ease"
+          },
+          onMouseEnter: (e) => e.currentTarget.style.opacity = "0.8",
+          onMouseLeave: (e) => e.currentTarget.style.opacity = "1",
+          children: "Log in"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 315,
+          columnNumber: 11
+        },
+        this
+      )
+    ] }, void 0, !0, {
+      fileName: "app/routes/signup.tsx",
+      lineNumber: 308,
+      columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/signup.tsx",
-    lineNumber: 72,
+    lineNumber: 75,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/signup.tsx",
+    lineNumber: 66,
     columnNumber: 5
   }, this);
 }
@@ -915,7 +1602,7 @@ function TodoItem({ todo, level = 0 }) {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-JNW74AKI.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-6ROTHZ6Z.js", "/build/_shared/chunk-A4ZMIUKA.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6K5BPC2N.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-HZQFYBCC.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GGSXPJWV.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/signup": { id: "routes/signup", parentId: "root", path: "signup", index: void 0, caseSensitive: void 0, module: "/build/routes/signup-JDKR2SRH.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/todos": { id: "routes/todos", parentId: "root", path: "todos", index: void 0, caseSensitive: void 0, module: "/build/routes/todos-SRNKSYDT.js", imports: ["/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "e230739c", hmr: { runtime: "/build/_shared/chunk-A4ZMIUKA.js", timestamp: 1770303928376 }, url: "/build/manifest-E230739C.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-JNW74AKI.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-6ROTHZ6Z.js", "/build/_shared/chunk-A4ZMIUKA.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-EOCL2KJQ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-ARLP2BBY.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GGSXPJWV.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/signup": { id: "routes/signup", parentId: "root", path: "signup", index: void 0, caseSensitive: void 0, module: "/build/routes/signup-3UCGHBAU.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/todos": { id: "routes/todos", parentId: "root", path: "todos", index: void 0, caseSensitive: void 0, module: "/build/routes/todos-SRNKSYDT.js", imports: ["/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "c66d9b8f", hmr: { runtime: "/build/_shared/chunk-A4ZMIUKA.js", timestamp: 1770333421314 }, url: "/build/manifest-C66D9B8F.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1, v3_throwAbortReason: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
