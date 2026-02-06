@@ -9,7 +9,6 @@ export async function createAppwriteSession(email: string, password: string) {
     },
     body: JSON.stringify({ email, password })
   })
-
   console.log('Session response status:', response.status)
   
   if (!response.ok) {
@@ -17,7 +16,6 @@ export async function createAppwriteSession(email: string, password: string) {
     console.error('Session creation failed:', error)
     throw new Error('Invalid credentials')
   }
-
   // The easiest way is to use the x-fallback-cookies header
   // This contains the cookie value that Appwrite expects
   const fallbackCookiesHeader = response.headers.get('x-fallback-cookies')
@@ -25,10 +23,10 @@ export async function createAppwriteSession(email: string, password: string) {
   if (fallbackCookiesHeader) {
     console.log('Using x-fallback-cookies header')
     const fallbackCookies = JSON.parse(fallbackCookiesHeader)
-    const sessionValue = fallbackCookies[`a_session_myappwriteprojectid`]
+    const sessionValue = fallbackCookies['a_session_myappwriteprojectid']
     
     if (sessionValue) {
-      const cookieName = `a_session_myappwriteprojectid`
+      const cookieName = 'a_session_myappwriteprojectid'
       const cookie = `${cookieName}=${sessionValue}; Path=/; HttpOnly; SameSite=Lax`
       
       console.log('Created cookie from fallback:', cookie.substring(0, 100) + '...')
@@ -47,7 +45,7 @@ export async function createAppwriteSession(email: string, password: string) {
     const match = setCookieHeader.match(/a_session_myappwriteprojectid=([^;]+)/)
     if (match) {
       const cookieValue = match[1]
-      const cookieName = `a_session_myappwriteprojectid`
+      const cookieName = 'a_session_myappwriteprojectid'
       
       // Recreate cookie for localhost (without domain restriction)
       const cookie = `${cookieName}=${cookieValue}; Path=/; HttpOnly; SameSite=Lax`
@@ -63,8 +61,13 @@ export async function createAppwriteSession(email: string, password: string) {
   throw new Error('Session created but could not extract cookie')
 }
 
-export async function createAppwriteAccount(email: string, password: string, userId: string) {
-  console.log('=== Creating account for:', email)
+export async function createAppwriteAccount(
+  email: string, 
+  password: string, 
+  userId: string, 
+  name?: string  // Added name parameter
+) {
+  console.log('=== Creating account for:', email, 'with name:', name)
   
   const response = await fetch('https://cloud.appwrite.io/v1/account', {
     method: 'POST',
@@ -75,12 +78,13 @@ export async function createAppwriteAccount(email: string, password: string, use
     body: JSON.stringify({
       userId,
       email,
-      password
+      password,
+      name  // Include name in the request
     })
   })
-
+  
   console.log('Account creation status:', response.status)
-
+  
   if (!response.ok) {
     const errorText = await response.text()
     console.error('Account creation failed:', errorText)
@@ -95,9 +99,9 @@ export async function createAppwriteAccount(email: string, password: string, use
     
     throw new Error(errorMessage)
   }
-
+  
   const accountData = await response.json()
-  console.log('Account created:', accountData.$id)
+  console.log('Account created:', accountData.$id, 'name:', accountData.name)
   console.log('===')
   
   return accountData

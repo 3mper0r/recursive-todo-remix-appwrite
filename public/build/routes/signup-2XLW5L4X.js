@@ -45,7 +45,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/routes/signup.tsx"
   );
-  import.meta.hot.lastModified = "1770332771810.1528";
+  import.meta.hot.lastModified = "1770387837294.318";
 }
 function SignupPage() {
   _s();
@@ -84,15 +84,15 @@ function SignupPage() {
         color: "white"
       }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" }, void 0, false, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 135,
+        lineNumber: 208,
         columnNumber: 15
       }, this) }, void 0, false, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 130,
+        lineNumber: 203,
         columnNumber: 13
       }, this) }, void 0, false, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 119,
+        lineNumber: 192,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h1", { style: {
@@ -103,7 +103,7 @@ function SignupPage() {
         margin: "0 0 8px 0"
       }, children: "Create account" }, void 0, false, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 138,
+        lineNumber: 211,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { style: {
@@ -112,12 +112,12 @@ function SignupPage() {
         margin: 0
       }, children: "Join us and start your journey today" }, void 0, false, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 147,
+        lineNumber: 220,
         columnNumber: 11
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 115,
+      lineNumber: 188,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
@@ -130,6 +130,76 @@ function SignupPage() {
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
         marginBottom: "24px"
       }, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { htmlFor: "name", style: {
+          display: "block",
+          fontSize: "14px",
+          fontWeight: "500",
+          color: "#374151",
+          marginBottom: "8px"
+        }, children: "Name" }, void 0, false, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 242,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
+          position: "relative"
+        }, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
+            position: "absolute",
+            left: "12px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            pointerEvents: "none"
+          }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", { style: {
+            width: "20px",
+            height: "20px",
+            color: "#9CA3AF"
+          }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" }, void 0, false, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 266,
+            columnNumber: 21
+          }, this) }, void 0, false, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 261,
+            columnNumber: 19
+          }, this) }, void 0, false, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 254,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { id: "name", name: "name", type: "text", autoComplete: "name", required: true, placeholder: "John Doe", style: {
+            width: "100%",
+            padding: "12px 12px 12px 44px",
+            border: "1px solid #D1D5DB",
+            borderRadius: "8px",
+            fontSize: "16px",
+            outline: "none",
+            transition: "all 0.15s ease",
+            boxSizing: "border-box"
+          }, onFocus: (e) => {
+            e.target.style.borderColor = "#4F46E5";
+            e.target.style.boxShadow = "0 0 0 3px rgba(79, 70, 229, 0.1)";
+          }, onBlur: (e) => {
+            e.target.style.borderColor = "#D1D5DB";
+            e.target.style.boxShadow = "none";
+          } }, void 0, false, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 269,
+            columnNumber: 17
+          }, this)
+        ] }, void 0, true, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 251,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, true, {
+        fileName: "app/routes/signup.tsx",
+        lineNumber: 239,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
+        marginBottom: "24px"
+      }, children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { htmlFor: "email", style: {
           display: "block",
           fontSize: "14px",
@@ -138,7 +208,7 @@ function SignupPage() {
           marginBottom: "8px"
         }, children: "Email address" }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 169,
+          lineNumber: 292,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
@@ -156,15 +226,15 @@ function SignupPage() {
             color: "#9CA3AF"
           }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 193,
+            lineNumber: 316,
             columnNumber: 21
           }, this) }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 188,
+            lineNumber: 311,
             columnNumber: 19
           }, this) }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 181,
+            lineNumber: 304,
             columnNumber: 17
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { id: "email", name: "email", type: "email", autoComplete: "email", required: true, placeholder: "you@example.com", style: {
@@ -184,17 +254,17 @@ function SignupPage() {
             e.target.style.boxShadow = "none";
           } }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 196,
+            lineNumber: 319,
             columnNumber: 17
           }, this)
         ] }, void 0, true, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 178,
+          lineNumber: 301,
           columnNumber: 15
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 166,
+        lineNumber: 289,
         columnNumber: 13
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
@@ -208,7 +278,7 @@ function SignupPage() {
           marginBottom: "8px"
         }, children: "Password" }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 219,
+          lineNumber: 342,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
@@ -226,15 +296,15 @@ function SignupPage() {
             color: "#9CA3AF"
           }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 243,
+            lineNumber: 366,
             columnNumber: 21
           }, this) }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 238,
+            lineNumber: 361,
             columnNumber: 19
           }, this) }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 231,
+            lineNumber: 354,
             columnNumber: 17
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { id: "password", name: "password", type: "password", autoComplete: "new-password", required: true, placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022", style: {
@@ -254,17 +324,17 @@ function SignupPage() {
             e.target.style.boxShadow = "none";
           } }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 246,
+            lineNumber: 369,
             columnNumber: 17
           }, this)
         ] }, void 0, true, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 228,
+          lineNumber: 351,
           columnNumber: 15
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 216,
+        lineNumber: 339,
         columnNumber: 13
       }, this),
       actionData?.error && /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
@@ -285,11 +355,11 @@ function SignupPage() {
           marginTop: "2px"
         }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 283,
+          lineNumber: 406,
           columnNumber: 19
         }, this) }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 275,
+          lineNumber: 398,
           columnNumber: 17
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { style: {
@@ -298,12 +368,12 @@ function SignupPage() {
           margin: 0
         }, children: actionData.error }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 285,
+          lineNumber: 408,
           columnNumber: 17
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 266,
+        lineNumber: 389,
         columnNumber: 35
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", { type: "submit", disabled: isSubmitting, style: {
@@ -340,19 +410,19 @@ function SignupPage() {
             opacity: 0.25
           }, cx: "12", cy: "12", r: "10", stroke: "currentColor", strokeWidth: "4" }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 324,
+            lineNumber: 447,
             columnNumber: 21
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { style: {
             opacity: 0.75
           }, fill: "currentColor", d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" }, void 0, false, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 327,
+            lineNumber: 450,
             columnNumber: 21
           }, this)
         ] }, void 0, true, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 318,
+          lineNumber: 441,
           columnNumber: 19
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("style", { children: `
@@ -362,13 +432,13 @@ function SignupPage() {
                     }
                   ` }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 331,
+          lineNumber: 454,
           columnNumber: 19
         }, this),
         "Creating account..."
       ] }, void 0, true, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 317,
+        lineNumber: 440,
         columnNumber: 31
       }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, { children: [
         "Sign up",
@@ -378,29 +448,29 @@ function SignupPage() {
           height: "16px"
         }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M13 7l5 5m0 0l-5 5m5-5H6" }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 345,
+          lineNumber: 468,
           columnNumber: 21
         }, this) }, void 0, false, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 340,
+          lineNumber: 463,
           columnNumber: 19
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 338,
+        lineNumber: 461,
         columnNumber: 23
       }, this) }, void 0, false, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 293,
+        lineNumber: 416,
         columnNumber: 13
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 164,
+      lineNumber: 237,
       columnNumber: 11
     }, this) }, void 0, false, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 157,
+      lineNumber: 230,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { style: {
@@ -419,21 +489,21 @@ function SignupPage() {
         transition: "opacity 0.15s ease"
       }, onMouseEnter: (e) => e.currentTarget.style.opacity = "0.8", onMouseLeave: (e) => e.currentTarget.style.opacity = "1", children: "Log in" }, void 0, false, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 360,
+        lineNumber: 483,
         columnNumber: 11
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 353,
+      lineNumber: 476,
       columnNumber: 9
     }, this)
   ] }, void 0, true, {
     fileName: "app/routes/signup.tsx",
-    lineNumber: 110,
+    lineNumber: 183,
     columnNumber: 7
   }, this) }, void 0, false, {
     fileName: "app/routes/signup.tsx",
-    lineNumber: 101,
+    lineNumber: 174,
     columnNumber: 10
   }, this);
 }
@@ -448,4 +518,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   SignupPage as default
 };
-//# sourceMappingURL=/build/routes/signup-3UCGHBAU.js.map
+//# sourceMappingURL=/build/routes/signup-2XLW5L4X.js.map

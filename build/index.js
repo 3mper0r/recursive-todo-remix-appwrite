@@ -128,8 +128,8 @@ async function createAppwriteSession(email, password) {
   }
   throw console.error("Could not extract session cookie from response"), new Error("Session created but could not extract cookie");
 }
-async function createAppwriteAccount(email, password, userId) {
-  console.log("=== Creating account for:", email);
+async function createAppwriteAccount(email, password, userId, name) {
+  console.log("=== Creating account for:", email, "with name:", name);
   let response = await fetch("https://cloud.appwrite.io/v1/account", {
     method: "POST",
     headers: {
@@ -139,7 +139,9 @@ async function createAppwriteAccount(email, password, userId) {
     body: JSON.stringify({
       userId,
       email,
-      password
+      password,
+      name
+      // Include name in the request
     })
   });
   if (console.log("Account creation status:", response.status), !response.ok) {
@@ -154,7 +156,7 @@ async function createAppwriteAccount(email, password, userId) {
     throw new Error(errorMessage);
   }
   let accountData = await response.json();
-  return console.log("Account created:", accountData.$id), console.log("==="), accountData;
+  return console.log("Account created:", accountData.$id, "name:", accountData.name), console.log("==="), accountData;
 }
 
 // app/routes/_index.tsx
@@ -617,19 +619,77 @@ import { useActionData as useActionData2, Form as Form2, useNavigation as useNav
 import { redirect as redirect3, json as json2 } from "@remix-run/node";
 import { ID } from "appwrite";
 import { Fragment as Fragment2, jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
+async function sendWelcomeEmail(email, name) {
+  let RESEND_API_KEY = process.env.RESEND_API_KEY;
+  if (!RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not configured, skipping welcome email");
+    return;
+  }
+  try {
+    let response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "Your App <onboarding@resend.dev>",
+        // Change this to your domain
+        to: email,
+        subject: "Welcome to Our App!",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1 style="color: #4F46E5;">Welcome, ${name}! \u{1F389}</h1>
+            <p style="font-size: 16px; color: #374151;">
+              Thank you for joining our app! We're excited to have you on board.
+            </p>
+            <p style="font-size: 16px; color: #374151;">
+              You can now start managing your todos and organizing your tasks efficiently.
+            </p>
+            <div style="margin: 30px 0;">
+              <a href="${process.env.APP_URL || "http://localhost:3000"}/todos" 
+                 style="background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); 
+                        color: white; 
+                        padding: 12px 24px; 
+                        text-decoration: none; 
+                        border-radius: 8px; 
+                        display: inline-block;">
+                Get Started
+              </a>
+            </div>
+            <p style="font-size: 14px; color: #6B7280;">
+              If you have any questions, feel free to reach out to our support team.
+            </p>
+          </div>
+        `
+      })
+    });
+    if (!response.ok) {
+      let errorText = await response.text();
+      console.error("Failed to send welcome email:", errorText);
+      return;
+    }
+    let data = await response.json();
+    console.log("Welcome email sent successfully:", data.id);
+  } catch (error) {
+    console.error("Error sending welcome email:", error);
+  }
+}
 var action2 = async ({ request }) => {
   console.log("!!! SIGNUP ACTION CALLED !!!");
   try {
-    let formData = await request.formData(), email = formData.get("email"), password = formData.get("password");
-    if (console.log("Form data:", { email, password: "***" }), !email || !password)
+    let formData = await request.formData(), email = formData.get("email"), password = formData.get("password"), name = formData.get("name") || email.split("@")[0];
+    if (console.log("Form data:", { email, name, password: "***" }), !email || !password)
       return json2({ error: "Email and password are required" }, { status: 400 });
     console.log("Step 1: Creating account...");
     try {
-      await createAppwriteAccount(email, password, ID.unique()), console.log("Step 2: Account created successfully");
+      await createAppwriteAccount(email, password, ID.unique(), name), console.log("Step 2: Account created successfully");
     } catch (accountError) {
       return console.error("Account creation error:", accountError), json2({ error: accountError.message || "Failed to create account" }, { status: 400 });
     }
-    console.log("Step 3: Creating session...");
+    sendWelcomeEmail(email, name).catch((err) => {
+      console.error("Welcome email failed but continuing:", err);
+    }), console.log("Step 3: Creating session...");
     let sessionCookies;
     try {
       sessionCookies = await createAppwriteSession(email, password), console.log("Step 4: Session created, cookies:", sessionCookies);
@@ -676,15 +736,15 @@ function SignupPage() {
         boxShadow: "0 10px 25px rgba(79, 70, 229, 0.5)"
       }, children: /* @__PURE__ */ jsxDEV4("svg", { style: { width: "40px", height: "40px", color: "white" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 93,
+        lineNumber: 169,
         columnNumber: 15
       }, this) }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 92,
+        lineNumber: 168,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 81,
+        lineNumber: 157,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ jsxDEV4("h1", { style: {
@@ -695,7 +755,7 @@ function SignupPage() {
         margin: "0 0 8px 0"
       }, children: "Create account" }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 96,
+        lineNumber: 172,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ jsxDEV4("p", { style: {
@@ -704,12 +764,12 @@ function SignupPage() {
         margin: 0
       }, children: "Join us and start your journey today" }, void 0, !1, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 105,
+        lineNumber: 181,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 80,
+      lineNumber: 156,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ jsxDEV4("div", { style: {
@@ -720,6 +780,83 @@ function SignupPage() {
       marginBottom: "24px"
     }, children: /* @__PURE__ */ jsxDEV4(Form2, { method: "post", children: [
       /* @__PURE__ */ jsxDEV4("div", { style: { marginBottom: "24px" }, children: [
+        /* @__PURE__ */ jsxDEV4("label", { htmlFor: "name", style: {
+          display: "block",
+          fontSize: "14px",
+          fontWeight: "500",
+          color: "#374151",
+          marginBottom: "8px"
+        }, children: "Name" }, void 0, !1, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 201,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDEV4("div", { style: { position: "relative" }, children: [
+          /* @__PURE__ */ jsxDEV4("div", { style: {
+            position: "absolute",
+            left: "12px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            pointerEvents: "none"
+          }, children: /* @__PURE__ */ jsxDEV4("svg", { style: { width: "20px", height: "20px", color: "#9CA3AF" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 219,
+            columnNumber: 21
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 218,
+            columnNumber: 19
+          }, this) }, void 0, !1, {
+            fileName: "app/routes/signup.tsx",
+            lineNumber: 211,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV4(
+            "input",
+            {
+              id: "name",
+              name: "name",
+              type: "text",
+              autoComplete: "name",
+              required: !0,
+              placeholder: "John Doe",
+              style: {
+                width: "100%",
+                padding: "12px 12px 12px 44px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "8px",
+                fontSize: "16px",
+                outline: "none",
+                transition: "all 0.15s ease",
+                boxSizing: "border-box"
+              },
+              onFocus: (e) => {
+                e.target.style.borderColor = "#4F46E5", e.target.style.boxShadow = "0 0 0 3px rgba(79, 70, 229, 0.1)";
+              },
+              onBlur: (e) => {
+                e.target.style.borderColor = "#D1D5DB", e.target.style.boxShadow = "none";
+              }
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/signup.tsx",
+              lineNumber: 222,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, void 0, !0, {
+          fileName: "app/routes/signup.tsx",
+          lineNumber: 210,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/signup.tsx",
+        lineNumber: 200,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ jsxDEV4("div", { style: { marginBottom: "24px" }, children: [
         /* @__PURE__ */ jsxDEV4("label", { htmlFor: "email", style: {
           display: "block",
           fontSize: "14px",
@@ -728,7 +865,7 @@ function SignupPage() {
           marginBottom: "8px"
         }, children: "Email address" }, void 0, !1, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 125,
+          lineNumber: 253,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ jsxDEV4("div", { style: { position: "relative" }, children: [
@@ -740,15 +877,15 @@ function SignupPage() {
             pointerEvents: "none"
           }, children: /* @__PURE__ */ jsxDEV4("svg", { style: { width: "20px", height: "20px", color: "#9CA3AF" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" }, void 0, !1, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 143,
+            lineNumber: 271,
             columnNumber: 21
           }, this) }, void 0, !1, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 142,
+            lineNumber: 270,
             columnNumber: 19
           }, this) }, void 0, !1, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 135,
+            lineNumber: 263,
             columnNumber: 17
           }, this),
           /* @__PURE__ */ jsxDEV4(
@@ -781,19 +918,19 @@ function SignupPage() {
             !1,
             {
               fileName: "app/routes/signup.tsx",
-              lineNumber: 146,
+              lineNumber: 274,
               columnNumber: 17
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 134,
+          lineNumber: 262,
           columnNumber: 15
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 124,
+        lineNumber: 252,
         columnNumber: 13
       }, this),
       /* @__PURE__ */ jsxDEV4("div", { style: { marginBottom: "24px" }, children: [
@@ -805,7 +942,7 @@ function SignupPage() {
           marginBottom: "8px"
         }, children: "Password" }, void 0, !1, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 177,
+          lineNumber: 305,
           columnNumber: 15
         }, this),
         /* @__PURE__ */ jsxDEV4("div", { style: { position: "relative" }, children: [
@@ -817,15 +954,15 @@ function SignupPage() {
             pointerEvents: "none"
           }, children: /* @__PURE__ */ jsxDEV4("svg", { style: { width: "20px", height: "20px", color: "#9CA3AF" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" }, void 0, !1, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 195,
+            lineNumber: 323,
             columnNumber: 21
           }, this) }, void 0, !1, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 194,
+            lineNumber: 322,
             columnNumber: 19
           }, this) }, void 0, !1, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 187,
+            lineNumber: 315,
             columnNumber: 17
           }, this),
           /* @__PURE__ */ jsxDEV4(
@@ -858,19 +995,19 @@ function SignupPage() {
             !1,
             {
               fileName: "app/routes/signup.tsx",
-              lineNumber: 198,
+              lineNumber: 326,
               columnNumber: 17
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 186,
+          lineNumber: 314,
           columnNumber: 15
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 176,
+        lineNumber: 304,
         columnNumber: 13
       }, this),
       actionData?.error && /* @__PURE__ */ jsxDEV4("div", { style: {
@@ -884,21 +1021,21 @@ function SignupPage() {
       }, children: [
         /* @__PURE__ */ jsxDEV4("svg", { style: { width: "20px", height: "20px", color: "#DC2626", marginRight: "12px", flexShrink: 0, marginTop: "2px" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" }, void 0, !1, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 239,
+          lineNumber: 367,
           columnNumber: 19
         }, this) }, void 0, !1, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 238,
+          lineNumber: 366,
           columnNumber: 17
         }, this),
         /* @__PURE__ */ jsxDEV4("p", { style: { fontSize: "14px", color: "#991B1B", margin: 0 }, children: actionData.error }, void 0, !1, {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 241,
+          lineNumber: 369,
           columnNumber: 17
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/signup.tsx",
-        lineNumber: 229,
+        lineNumber: 357,
         columnNumber: 15
       }, this),
       /* @__PURE__ */ jsxDEV4(
@@ -937,17 +1074,17 @@ function SignupPage() {
             }, fill: "none", viewBox: "0 0 24 24", children: [
               /* @__PURE__ */ jsxDEV4("circle", { style: { opacity: 0.25 }, cx: "12", cy: "12", r: "10", stroke: "currentColor", strokeWidth: "4" }, void 0, !1, {
                 fileName: "app/routes/signup.tsx",
-                lineNumber: 284,
+                lineNumber: 412,
                 columnNumber: 21
               }, this),
               /* @__PURE__ */ jsxDEV4("path", { style: { opacity: 0.75 }, fill: "currentColor", d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" }, void 0, !1, {
                 fileName: "app/routes/signup.tsx",
-                lineNumber: 285,
+                lineNumber: 413,
                 columnNumber: 21
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/signup.tsx",
-              lineNumber: 278,
+              lineNumber: 406,
               columnNumber: 19
             }, this),
             /* @__PURE__ */ jsxDEV4("style", { children: `
@@ -957,28 +1094,28 @@ function SignupPage() {
                     }
                   ` }, void 0, !1, {
               fileName: "app/routes/signup.tsx",
-              lineNumber: 287,
+              lineNumber: 415,
               columnNumber: 19
             }, this),
             "Creating account..."
           ] }, void 0, !0, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 277,
+            lineNumber: 405,
             columnNumber: 17
           }, this) : /* @__PURE__ */ jsxDEV4(Fragment2, { children: [
             "Sign up",
             /* @__PURE__ */ jsxDEV4("svg", { style: { marginLeft: "8px", width: "16px", height: "16px" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsxDEV4("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M13 7l5 5m0 0l-5 5m5-5H6" }, void 0, !1, {
               fileName: "app/routes/signup.tsx",
-              lineNumber: 299,
+              lineNumber: 427,
               columnNumber: 21
             }, this) }, void 0, !1, {
               fileName: "app/routes/signup.tsx",
-              lineNumber: 298,
+              lineNumber: 426,
               columnNumber: 19
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/signup.tsx",
-            lineNumber: 296,
+            lineNumber: 424,
             columnNumber: 17
           }, this)
         },
@@ -986,18 +1123,18 @@ function SignupPage() {
         !1,
         {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 246,
+          lineNumber: 374,
           columnNumber: 13
         },
         this
       )
     ] }, void 0, !0, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 122,
+      lineNumber: 198,
       columnNumber: 11
     }, this) }, void 0, !1, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 115,
+      lineNumber: 191,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ jsxDEV4("p", { style: {
@@ -1027,23 +1164,23 @@ function SignupPage() {
         !1,
         {
           fileName: "app/routes/signup.tsx",
-          lineNumber: 315,
+          lineNumber: 443,
           columnNumber: 11
         },
         this
       )
     ] }, void 0, !0, {
       fileName: "app/routes/signup.tsx",
-      lineNumber: 308,
+      lineNumber: 436,
       columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/signup.tsx",
-    lineNumber: 75,
+    lineNumber: 151,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/signup.tsx",
-    lineNumber: 66,
+    lineNumber: 142,
     columnNumber: 5
   }, this);
 }
@@ -1602,7 +1739,7 @@ function TodoItem({ todo, level = 0 }) {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-JNW74AKI.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-6ROTHZ6Z.js", "/build/_shared/chunk-A4ZMIUKA.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-EOCL2KJQ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-ARLP2BBY.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GGSXPJWV.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/signup": { id: "routes/signup", parentId: "root", path: "signup", index: void 0, caseSensitive: void 0, module: "/build/routes/signup-3UCGHBAU.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/todos": { id: "routes/todos", parentId: "root", path: "todos", index: void 0, caseSensitive: void 0, module: "/build/routes/todos-SRNKSYDT.js", imports: ["/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "c66d9b8f", hmr: { runtime: "/build/_shared/chunk-A4ZMIUKA.js", timestamp: 1770333421314 }, url: "/build/manifest-C66D9B8F.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-JNW74AKI.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-6ROTHZ6Z.js", "/build/_shared/chunk-A4ZMIUKA.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-EOCL2KJQ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-ARLP2BBY.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GGSXPJWV.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/signup": { id: "routes/signup", parentId: "root", path: "signup", index: void 0, caseSensitive: void 0, module: "/build/routes/signup-2XLW5L4X.js", imports: ["/build/_shared/chunk-2ACWMAZK.js", "/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/todos": { id: "routes/todos", parentId: "root", path: "todos", index: void 0, caseSensitive: void 0, module: "/build/routes/todos-SRNKSYDT.js", imports: ["/build/_shared/chunk-ZBGM3ELI.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "e8d3f9e8", hmr: { runtime: "/build/_shared/chunk-A4ZMIUKA.js", timestamp: 1770387839706 }, url: "/build/manifest-E8D3F9E8.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1, v3_throwAbortReason: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

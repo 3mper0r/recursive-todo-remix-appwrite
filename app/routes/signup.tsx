@@ -3,6 +3,70 @@ import { ActionFunctionArgs, redirect, json } from "@remix-run/node"
 import { ID } from "appwrite"
 import { createAppwriteAccount, createAppwriteSession } from "../lib/appwrite-auth.server"
 
+// Function to send welcome email
+async function sendWelcomeEmail(email: string, name: string) {
+  // Using Resend API (simple and free tier available)
+  // Get your API key from https://resend.com
+  const RESEND_API_KEY = process.env.RESEND_API_KEY
+  
+  if (!RESEND_API_KEY) {
+    console.warn('RESEND_API_KEY not configured, skipping welcome email')
+    return
+  }
+
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Your App <onboarding@resend.dev>', // Change this to your domain
+        to: email,
+        subject: 'Welcome to Our App!',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1 style="color: #4F46E5;">Welcome, ${name}! 🎉</h1>
+            <p style="font-size: 16px; color: #374151;">
+              Thank you for joining our app! We're excited to have you on board.
+            </p>
+            <p style="font-size: 16px; color: #374151;">
+              You can now start managing your todos and organizing your tasks efficiently.
+            </p>
+            <div style="margin: 30px 0;">
+              <a href="${process.env.APP_URL || 'http://localhost:3000'}/todos" 
+                 style="background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); 
+                        color: white; 
+                        padding: 12px 24px; 
+                        text-decoration: none; 
+                        border-radius: 8px; 
+                        display: inline-block;">
+                Get Started
+              </a>
+            </div>
+            <p style="font-size: 14px; color: #6B7280;">
+              If you have any questions, feel free to reach out to our support team.
+            </p>
+          </div>
+        `,
+      }),
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Failed to send welcome email:', errorText)
+      return
+    }
+
+    const data = await response.json()
+    console.log('Welcome email sent successfully:', data.id)
+  } catch (error) {
+    console.error('Error sending welcome email:', error)
+    // Don't fail the signup if email fails
+  }
+}
+
 export const action = async ({ request }: ActionFunctionArgs) => {
   console.log('!!! SIGNUP ACTION CALLED !!!')
   
@@ -10,24 +74,35 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const formData = await request.formData()
     const email = formData.get("email") as string
     const password = formData.get("password") as string
-    console.log('Form data:', { email, password: '***' })
+    const name = formData.get("name") as string || email.split('@')[0] // Default to email prefix if no name
+    
+    console.log('Form data:', { email, name, password: '***' })
+    
     if (!email || !password) {
       return json({ error: "Email and password are required" }, { status: 400 })
     }
+    
     console.log('Step 1: Creating account...')
     
     try {
-      await createAppwriteAccount(email, password, ID.unique())
+      // Create account with name
+      await createAppwriteAccount(email, password, ID.unique(), name)
       console.log('Step 2: Account created successfully')
     } catch (accountError: any) {
       console.error('Account creation error:', accountError)
       return json({ error: accountError.message || "Failed to create account" }, { status: 400 })
     }
     
+    // Send welcome email (don't block on this)
+    sendWelcomeEmail(email, name).catch(err => {
+      console.error('Welcome email failed but continuing:', err)
+    })
+    
     console.log('Step 3: Creating session...')
     
     let sessionCookies: string[]
     try {
+      // Create session
       sessionCookies = await createAppwriteSession(email, password)
       console.log('Step 4: Session created, cookies:', sessionCookies)
     } catch (sessionError: any) {
@@ -42,6 +117,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     
     console.log('Step 5: Redirecting to /todos')
     
+    // Create headers with all cookies
     const headers = new Headers()
     sessionCookies.forEach(cookie => {
       headers.append("Set-Cookie", cookie)
@@ -120,6 +196,58 @@ export default function SignupPage() {
           marginBottom: '24px'
         }}>
           <Form method="post">
+            {/* Name Input */}
+            <div style={{ marginBottom: '24px' }}>
+              <label htmlFor="name" style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>
+                Name
+              </label>
+              <div style={{ position: 'relative' }}>
+                <div style={{
+                  position: 'absolute',
+                  left: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  pointerEvents: 'none'
+                }}>
+                  <svg style={{ width: '20px', height: '20px', color: '#9CA3AF' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  placeholder="John Doe"
+                  style={{
+                    width: '100%',
+                    padding: '12px 12px 12px 44px',
+                    border: '1px solid #D1D5DB',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.15s ease',
+                    boxSizing: 'border-box'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#4F46E5'
+                    e.target.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.1)'
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#D1D5DB'
+                    e.target.style.boxShadow = 'none'
+                  }}
+                />
+              </div>
+            </div>
+
             {/* Email Input */}
             <div style={{ marginBottom: '24px' }}>
               <label htmlFor="email" style={{
